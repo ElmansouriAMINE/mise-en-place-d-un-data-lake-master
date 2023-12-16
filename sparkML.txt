@@ -1,0 +1,105 @@
+%pyspark
+from pyspark.sql import SparkSession
+
+spark = SparkSession.builder.appName("SentimentAnalysis").getOrCreate()
+%pyspark
+from pyspark.sql import SparkSession
+from pyspark.ml.classification import LogisticRegression, NaiveBayes, RandomForestClassifier
+from pyspark.ml import Pipeline
+from pyspark.ml.feature import Tokenizer, StopWordsRemover, CountVectorizer
+from pyspark.ml.evaluation import BinaryClassificationEvaluator
+from pyspark.ml.tuning import ParamGridBuilder, TrainValidationSplit
+
+# Initialiser la session Spark
+spark = SparkSession.builder.appName("SentimentAnalysis").getOrCreate()
+
+# Charger le dataset dans un DataFrame Spark
+# dataset_path= "user/inputs/data.csv"
+dataset_path = "hdfs://namenode:9000/user/inputs/data.csv"
+df = spark.read.option("header", "true").option("inferSchema", "true").csv(dataset_path)
+
+# Prétraitement des données
+tokenizer = Tokenizer(inputCol="Sentence", outputCol="words")
+remover = StopWordsRemover(inputCol="words", outputCol="filtered")
+vectorizer = CountVectorizer(inputCol="filtered", outputCol="features")
+
+%pyspark
+# Liste des modèles avec hyperparamètres
+# Liste des modèles avec hyperparamètres
+models = [
+    (LogisticRegression, {
+        "labelCol": "Sentiment",  # Use "Sentiment" instead of "label"
+        "featuresCol": "features",
+        "maxIter": 10,
+        "regParam": 0.01
+    }),
+    (NaiveBayes, {
+        "labelCol": "Sentiment",  # Use "Sentiment" instead of "label"
+        "featuresCol": "features",
+        "smoothing": 1.0
+    }),
+    (RandomForestClassifier, {
+        "labelCol": "Sentiment",  # Use "Sentiment" instead of "label"
+        "featuresCol": "features",
+        "numTrees": 50,
+        "maxDepth": 5
+    })
+]
+
+# Diviser le dataset en ensembles d'entraînement et de test
+train_data, test_data = df.randomSplit([0.8, 0.2], seed=42)
+
+%pyspark
+print(df.columns)
+
+
+%pyspark
+from pyspark.ml.feature import Tokenizer, HashingTF, IDF, StringIndexer
+from pyspark.ml.classification import NaiveBayes, RandomForestClassifier
+from pyspark.ml import Pipeline
+from pyspark.ml.evaluation import MulticlassClassificationEvaluator
+
+
+# Entraîner et évaluer les modèles
+best_model = None
+best_accuracy = 0.0
+
+for model_class, param_grid in models:
+    # Créer le modèle
+    model = model_class()
+
+    # Créer le pipeline
+    tokenizer = Tokenizer(inputCol="Sentence", outputCol="words")
+    hashingTF = HashingTF(inputCol="words", outputCol="rawFeatures", numFeatures=5000)
+    idf = IDF(inputCol="rawFeatures", outputCol="features")
+
+    indexer = StringIndexer(inputCol="Sentiment", outputCol="label_indexed")  # Use "Sentiment" instead of "Sentence"
+    classifier = model.setLabelCol("label_indexed").setFeaturesCol("features")
+
+    pipeline = Pipeline(stages=[tokenizer, hashingTF, idf, indexer, classifier])
+
+    print(f"Training {model_class.__name__} model...")
+    model_fit = pipeline.fit(train_data.sample(fraction=0.1, seed=42))
+    print(f"{model_class.__name__} model trained successfully.")
+
+    predictions = model_fit.transform(test_data.sample(fraction=0.1, seed=42))
+
+    evaluator = MulticlassClassificationEvaluator(labelCol="label_indexed", predictionCol="prediction", metricName="accuracy")
+    accuracy = evaluator.evaluate(predictions)
+    print(f'{model_class.__name__} Accuracy: {accuracy}')
+
+    if accuracy > best_accuracy:
+        best_accuracy = accuracy
+        best_model = model_fit
+
+print(f"Best model with accuracy: {best_accuracy}")
+
+
+%pyspark
+print(f"Best model with accuracy: {best_accuracy}")
+
+# Print the best model information
+print(f"Best model with accuracy: {best_accuracy}")
+
+# Save the best model
+best_model.write().overwrite().save("/opt/zeppelin/best_model")
