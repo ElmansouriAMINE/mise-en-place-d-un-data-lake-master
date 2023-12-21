@@ -1,0 +1,16 @@
+{
+    "type": "index",
+    "spec": {
+      "dataSchema": {
+      },
+      "ioConfig": {
+        "type": "hdfs",
+        "uris": "hdfs://namenode:9000",
+        "inputPath": "/user/inputs/"
+       
+      },
+      "tuningConfig": {
+      }
+    }
+  }
+  
