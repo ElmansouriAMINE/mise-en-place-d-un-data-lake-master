@@ -5,9 +5,8 @@ This project aims to establish a data lake for visualizing financial data using 
 
 ## Prerequisites
 Before getting started, ensure your environment meets the following requirements:
-
--Operating System: Compatible with Docker and necessary tools.
--RAM: Minimum of 13 GB.
--Docker: Installed and verified.
--Docker Compose: Installed and verified.
+-  Operating System: Compatible with Docker and necessary tools.
+-  RAM: Minimum of 13 GB.
+-  Docker: Installed and verified.
+-  Docker Compose: Installed and verified.
 
