@@ -14,6 +14,7 @@ Before getting started, ensure your environment meets the following requirements
 ### Clone the Repository
 ```bash
 # Clone the repository from GitHub
-git clone https://github.com/ElmansouriAMINE/mise-en-place-d-un-data-lake-master
+git clone https://github.com/ElmansouriAMINE/mise-en-place-d-un-data-lake-master.git
+
 cd mise-en-place-d-un-data-lake-master
 ```
