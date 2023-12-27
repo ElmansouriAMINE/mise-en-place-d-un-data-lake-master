@@ -10,3 +10,10 @@ Before getting started, ensure your environment meets the following requirements
 -  Docker: Installed and verified.
 -  Docker Compose: Installed and verified.
 
+## Getting Started
+### Clone the Repository
+```bash
+# Clone the repository from GitHub
+git clone https://github.com/ElmansouriAMINE/mise-en-place-d-un-data-lake-master
+cd mise-en-place-d-un-data-lake-master
+```
