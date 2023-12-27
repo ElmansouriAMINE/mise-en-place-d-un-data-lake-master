@@ -18,3 +18,11 @@ git clone https://github.com/ElmansouriAMINE/mise-en-place-d-un-data-lake-master
 
 cd mise-en-place-d-un-data-lake-master
 ```
+### Start the Project with Docker Compose
+```bash
+# Make sure to be in the project directory
+cd mise-en-place-d-un-data-lake-master
+
+# Start the services in the background with Docker Compose
+docker-compose up -d
+```
