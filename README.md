@@ -10,7 +10,7 @@ Before getting started, ensure your environment meets the following requirements
 -  Docker: Installed and verified.
 -  Docker Compose: Installed and verified.
 ## System Architecture
-** System Architecture
+System Architecture
 :------------:
 ![architecture projet](https://github.com/ElmansouriAMINE/MOROCCO-MONUMENTS-LOCATION-IDENTIFYING/assets/101812229/902de86a-66ed-4163-b1fa-d0581ce81f3a)
 ### 1.  Intercepting data from the 2 APIs using Apache Beam:
