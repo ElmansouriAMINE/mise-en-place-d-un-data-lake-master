@@ -34,7 +34,8 @@ Analyzing New York Times sentiment data by truncating abstracts, calculating the
 
 ### 8.  Visualizing the processing result using Streamlit
 
-## Getting Started
+
+## Running the Project
 ### Clone the Repository
 ```bash
 # Clone the repository from GitHub
