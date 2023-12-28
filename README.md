@@ -52,3 +52,8 @@ cd mise-en-place-d-un-data-lake-master
 docker-compose up -d
 ```
 
+## Contributors
+-  #### AMINE ELMANSOURI
+-  #### CHARAFEDDINE ELBAHJA
+-  #### YASSINE HASSINI
+
