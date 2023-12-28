@@ -10,7 +10,7 @@ Before getting started, ensure your environment meets the following requirements
 -  Docker: Installed and verified.
 -  Docker Compose: Installed and verified.
 ## System Architecture
--   ### Intercepting data from the 2 APIs using Apache Beam:
+ 1.   ### Intercepting data from the 2 APIs using Apache Beam:
 This Python code utilizes Apache Beam to create a data processing pipeline. It defines two data schemas, one for New York Times news articles and the other for financial information from Yahoo Finance, using the PyArrow library. The pipeline aims to retrieve article data via HTTP requests, as well as financial data from Yahoo Finance, and process them simultaneously. The schemas specify the data structure to ensure consistency during parallel processing in the Apache Beam pipeline.
 
 -  ### Saving raw data in Parquet format:
