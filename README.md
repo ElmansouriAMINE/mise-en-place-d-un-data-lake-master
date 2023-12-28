@@ -10,26 +10,26 @@ Before getting started, ensure your environment meets the following requirements
 -  Docker: Installed and verified.
 -  Docker Compose: Installed and verified.
 ## System Architecture
-### -   Intercepting data from the 2 APIs using Apache Beam:
+-   ### Intercepting data from the 2 APIs using Apache Beam:
 This Python code utilizes Apache Beam to create a data processing pipeline. It defines two data schemas, one for New York Times news articles and the other for financial information from Yahoo Finance, using the PyArrow library. The pipeline aims to retrieve article data via HTTP requests, as well as financial data from Yahoo Finance, and process them simultaneously. The schemas specify the data structure to ensure consistency during parallel processing in the Apache Beam pipeline.
 
-### -  Saving raw data in Parquet format:
+-  ### Saving raw data in Parquet format:
 The results of the Beam pipeline execution are written to Parquet files with explicit schemas for both New York Times and Yahoo Finance data.
 
-### -  Training multiple ML models for sentiment analysis:
+-  ### Training multiple ML models for sentiment analysis:
 Multiple sentiment analysis models are trained using Spark ML on a Zeppelin notebook, and the best model is saved in HDFS.
 
-### -  Reading saved data with Spark SQL:
+-  ### Reading saved data with Spark SQL:
 
-### -  Predicting sentiment scores of texts using Spark ML:
+-  ###  Predicting sentiment scores of texts using Spark ML:
 A pre-trained model is used to predict sentiment labels from a text column in a New York Times DataFrame. The results are then filtered and displayed.
 
-### -  Adding new columns to NYT data:
+-  ###  Adding new columns to NYT data:
 Analyzing New York Times sentiment data by truncating abstracts, calculating the total number of abstracts, and the average sentiment per day, providing an overall summary of daily statistics, and displaying results sorted by date.
 
-### -  Saving the new DataFrame obtained in Apache Druid
+-  ### Saving the new DataFrame obtained in Apache Druid
 
-### -  Visualizing the processing result using Streamlit
+-  ### Visualizing the processing result using Streamlit
 
 ## Getting Started
 ### Clone the Repository
